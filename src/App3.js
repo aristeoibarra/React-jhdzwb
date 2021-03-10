@@ -21,16 +21,32 @@ class Blog extends Component {
     //Consulta via ajax
     let promesa = fetch("https://jsonplaceholder.typicode.com/posts");
 
-    promesa.then(response => {
-      console.log(response);
-    });
+    promesa
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          articles: data
+        });
+      });
   }
+  /*
+    promesa.then(response => {
+      response.json().then(data => {
+        console.log(data);
+        this.setState({
+          articles: data
+      });
+    });*/
 
   render() {
     return (
       <div>
-        {this.state.articles.map(title => {
-          return <p>{title}</p>;
+        {this.state.articles.map(articles => {
+          return (
+            <div className="card" style={{ backgroundColor: 'red',color:'black' }}>
+              <p>{articles.title}</p>
+            </div>
+          );
         })}
       </div>
     );
